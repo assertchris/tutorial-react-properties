@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="react-0.8.0/build/react.js"></script>
+    <script type="text/javascript" src="react-0.8.0/build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <script type="text/jsx">
+
+      /**
+       * @jsx React.DOM
+       */
+        
+      var InterfaceComponent = React.createClass({
+        propTypes: {
+          name    : React.PropTypes.string,
+          visible : React.PropTypes.bool.isRequired,
+          before  : function(props, propName, componentName) {
+            if (!(propName in props)) {
+              throw new Error("before must be set.");
+            }
+
+            var now = new Date();
+
+            if (now.getTime() >= props[propName].getTime()) {
+              throw new Error("before must be set to a later date.");
+            }
+          }
+        },
+        render : function() {
+          return <div>hello {this.props.name}!</div>;
+        }
+      });
+
+      React.renderComponent(
+        <InterfaceComponent
+          name="chris"
+          visible={true}
+          before={new Date(Date.now() + 10000)} />,
+        document.body
+      );
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="react-0.8.0/build/react.js"></script>
+    <script type="text/javascript" src="react-0.8.0/build/JSXTransformer.js"></script>
+  </head>
+  <body>
+    <script type="text/jsx">
+
+      /**
+       * @jsx React.DOM
+       */
+
+      var ChildComponent = React.createClass({
+        render : function() {
+          return <div style={{
+            color      : this.props.color,
+            background : this.props.background
+          }}>
+            I am {this.props.color}
+          </div>
+        }
+      });
+        
+      var ParentComponent = React.createClass({
+        render : function() {
+          return this.transferPropsTo(
+            <ChildComponent background={null} />
+          );
+        }
+      });
+
+      React.renderComponent(
+        <ParentComponent color="blue" background="red" />,
+        document.body
+      );
+
+    </script>
+  </body>
+</html>
